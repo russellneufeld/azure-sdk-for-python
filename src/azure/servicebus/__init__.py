@@ -251,8 +251,8 @@ def _get_token(request, account_key, issuer):
     wrap_scope = 'http://' + request.host + request.path
        
     # Check whether has unexpired cache, return cached token if it is still usable. 
-    if _tokens.has_key(wrap_scope):
-        token = _tokens[wrap_scope]
+    if _tokens.has_key(issuer + wrap_scope):
+        token = _tokens[issuer + wrap_scope]
         if not _token_is_expired(token):
             return token
 
@@ -282,7 +282,7 @@ def _get_token(request, account_key, issuer):
         raise HTTPError(resp.status, resp.reason, resp.getheaders(), None)
         
     token = urllib2.unquote(token[token.find('=')+1:token.rfind('&')])
-    _tokens[wrap_scope] = token
+    _tokens[issuer + wrap_scope] = token
 
     return token
 
