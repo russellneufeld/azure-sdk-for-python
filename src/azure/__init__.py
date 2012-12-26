@@ -97,9 +97,9 @@ class HeaderDict(dict):
 
 def _get_readable_id(id_name):
     """simplified an id to be more friendly for us people"""
-    pos = id_name.rfind('/')
+    pos = id_name.rfind(SERVICE_BUS_HOST_BASE)
     if pos != -1:
-        return id_name[pos+1:]
+        return id_name[pos+len(SERVICE_BUS_HOST_BASE)+1:]
     else:
         return id_name
 
